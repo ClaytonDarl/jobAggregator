@@ -8,8 +8,9 @@ import requests
 import pandas as pd
 
 #specify the driver path with the proper driver for Firefox, open indeed.com
-DRIVER_PATH = '/home/cdog/Projects/geckodriver'
-driver = webdriver.Firefox(executable_path=DRIVER_PATH)
+###DRIVER_PATH = '/Users/claytondarlington/Projects/jobAggregator/geckodriver'
+###driver = webdriver.Firefox(executable_path=DRIVER_PATH)
+driver = webdriver.Safari()
 driver.get('https://ca.indeed.com/')
 
 #search for software developer with auto fill in the location
@@ -88,9 +89,12 @@ for link  in links:
     print(check)
 
     if check.status_code == 200:
-        driver.get(link)
-        jobDesc = driver.find_element_by_xpath('.//div[@id="jobDescriptionText"]').text
-        descriptinos.append(jobDesc)
+        try:
+            driver.get(link)
+            jobDesc = driver.find_element_by_xpath('.//div[@id="jobDescriptionText"]').text
+            descriptinos.append(jobDesc)
+        except:
+            print("Error loading description")
 
     
 
